@@ -386,7 +386,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2864815873437671761}
-  - component: {fileID: 2864815873437671766}
   m_Layer: 0
   m_Name: AutoGun
   m_TagString: Untagged
@@ -409,28 +408,6 @@ Transform:
   m_Father: {fileID: 203636466531373053}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2864815873437671766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2864815873437671760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a3b8e46530a3e946b7637885a332a02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bdam: 10
-  eDam: 1
-  impactForce: 100
-  fireRate: 15
-  range: 20
-  fpsCam: {fileID: 0}
-  MuzzleFlash: {fileID: 0}
-  ImpactEffect: {fileID: 3364391499229980573, guid: 354b749d3daf450428b36bc67dd85acc,
-    type: 3}
-  Auto: 1
 --- !u!1 &2864815874229686853
 GameObject:
   m_ObjectHideFlags: 0

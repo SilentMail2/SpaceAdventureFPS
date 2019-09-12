@@ -4858,6 +4858,7 @@ GameObject:
   m_Component:
   - component: {fileID: 353989584723047142}
   - component: {fileID: 353989584723047137}
+  - component: {fileID: 187623890901962280}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -4904,6 +4905,25 @@ MonoBehaviour:
   ImpactEffect: {fileID: 3364391499229980573, guid: 354b749d3daf450428b36bc67dd85acc,
     type: 3}
   Auto: 0
+--- !u!95 &187623890901962280
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353989584723047143}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c7e3e1d5ffebaf140adc36cfe059be6d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &353989584890124945
 GameObject:
   m_ObjectHideFlags: 0

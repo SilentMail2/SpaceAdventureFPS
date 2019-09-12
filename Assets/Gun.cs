@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -9,7 +10,10 @@ public class Gun : MonoBehaviour
     public float impactForce = 1f;
     public float fireRate = 15f;
     public float range = 100f;
-
+    public int ammo = 10;
+    public int maxAmmo = 10;
+    public int clip = 10;
+    public Slider ammoIndicator;
     public Camera fpsCam;
     public ParticleSystem MuzzleFlash;
     public GameObject ImpactEffect;
@@ -18,6 +22,8 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     private void Awake()
     {
+        ammoIndicator.maxValue = maxAmmo;
+        ammoIndicator.value = ammo;
         fpsCam = Camera.main;
     }
     void Update()
@@ -40,9 +46,12 @@ public class Gun : MonoBehaviour
                 Shoot();
             }
         }
+
+        CheckandRefillAmmo();
     }
     public void Shoot()
     {
+        ammo--;
         MuzzleFlash.Play();
         RaycastHit hit;
         Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range);
@@ -60,6 +69,23 @@ public class Gun : MonoBehaviour
             }
           GameObject impactGO = Instantiate(ImpactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 2f);
+        }
+    }
+    public void CheckandRefillAmmo()
+    {
+        ammoIndicator.value = ammo;
+        if (ammo<maxAmmo)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                ammo = maxAmmo;
+                clip--;
+            }
+        }
+        if (ammo <= 0)
+        {
+            ammo = maxAmmo;
+            clip--;
         }
     }
 }
