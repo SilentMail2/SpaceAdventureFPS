@@ -59,7 +59,7 @@ public class GunControl : MonoBehaviour
 
                 Debug.Log(hit.transform.gameObject.name);
                 GunPickup target = hit.transform.GetComponent<GunPickup>();
-                
+                AmmoPickUp clipTarget = hit.transform.GetComponent<AmmoPickUp>();
                 if (target != null)
                 {
                     //weapon registry
@@ -95,7 +95,9 @@ public class GunControl : MonoBehaviour
                         }
 
                     }
-                    Instantiate(target.Gun, this.gameObject.transform);
+                    GameObject newGun = Instantiate(target.Gun, this.gameObject.transform);
+                    newGun.GetComponent<Gun>().ammo = target.gameObject.GetComponent<GunPickup>().ammo;
+                    newGun.GetComponent<Gun>().clip = target.gameObject.GetComponent<GunPickup>().clip;
                     if (transform.childCount == 2)
                     {
                         if (selectedWeapon == 0)
@@ -136,8 +138,22 @@ public class GunControl : MonoBehaviour
                         }
 
                     }
-
-
+                }
+                else if (clipTarget != null)
+                {
+                    if (this.transform.childCount > 0)
+                    {
+                        //has gun
+                        GameObject GunHeld = this.transform.GetChild(selectedWeapon).gameObject;
+                        if (GunHeld.GetComponent<Gun>().GunClipType == clipTarget.gameObject.GetComponent<AmmoPickUp>().GunclipType)
+                        {
+                            GunHeld.GetComponent<Gun>().PickupClip(clipTarget.gameObject.GetComponent<AmmoPickUp>());
+                        }
+                        else
+                        {
+                            Debug.Log("Incapatible Ammotype");
+                        }
+                    }
                 }
             }
 
@@ -173,12 +189,16 @@ public class GunControl : MonoBehaviour
         //{
 
         GameObject droppedGun = (GameObject)Instantiate(Resources.Load("GunPickup(" + weaponReadytoDrop + ")"), Weapondrop.position, Weapondrop.rotation);
-           // GameObject instance = Instantiate((Resources.Load(("GunPickup("+weaponReadytoDrop + ")"), typeof(GameObject)))) as GameObject;
+        GameObject Droppedgun = this.transform.GetChild(selectedWeapon).gameObject;
+        droppedGun.GetComponent<GunPickup>().ammo = Droppedgun.GetComponent<Gun>().ammo;
+        droppedGun.GetComponent<GunPickup>().clip = Droppedgun.GetComponent<Gun>().clip;
+
+        // GameObject instance = Instantiate((Resources.Load(("GunPickup("+weaponReadytoDrop + ")"), typeof(GameObject)))) as GameObject;
         //}
-     /*   if (selectedWeapon == 1)
-        {
-            GameObject instance = Instantiate(Resources.Load(("GunPickup(" + weaponReadytoDrop + ")"), typeof(GameObject))) as GameObject;
-        }*/
+        /*   if (selectedWeapon == 1)
+           {
+               GameObject instance = Instantiate(Resources.Load(("GunPickup(" + weaponReadytoDrop + ")"), typeof(GameObject))) as GameObject;
+           }*/
     }
 
 }

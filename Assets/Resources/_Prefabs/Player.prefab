@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 286524111468929345}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -0.345, z: 0.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7362114053577318253}
@@ -79,6 +79,7 @@ MonoBehaviour:
   weapon1: 
   weapon2: 
   weaponReadytoDrop: 
+  Weapondrop: {fileID: 5259329360953158886}
 --- !u!1 &7362114053577409353
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,8 +445,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  mhp: 100
   sp: 100
   spIncrease: 10
   shieldReplenishTime: 3
   shieldReplenishReset: 3
   shieldReplenishing: 0
+  Health: {fileID: 0}
+  Shield: {fileID: 0}

@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class EnemyControl : MonoBehaviour
 {
+    enum state { patrol, flee, takecover, wander, attack, search, }
+
     public Transform[] patrolPoint;
     public int navNumber;
     public Vector3 targetPoint;

@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
+    enum clipType { Auto, HighCal, LowCal }
+    [SerializeField] clipType thisClipType = clipType.Auto;
+    public string GunClipType;
+
     public float bdam = 1f;
     public float eDam = 1f;
     public float impactForce = 1f;
@@ -22,28 +26,32 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     private void Awake()
     {
+        GunClipType = thisClipType.ToString();
         ammoIndicator.maxValue = maxAmmo;
         ammoIndicator.value = ammo;
         fpsCam = Camera.main;
     }
     void Update()
     {
-        if (Auto)
+        if (ammo > 0)
         {
-            if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
+            if (Auto)
             {
-                nextTimeToFire = Time.time + 1f / fireRate;
-                Debug.Log("NextFire in " + nextTimeToFire);
-                Shoot();
+                if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
+                {
+                    nextTimeToFire = Time.time + 1f / fireRate;
+                    Debug.Log("NextFire in " + nextTimeToFire);
+                    Shoot();
+                }
             }
-        }
-        if (!Auto)
-        {
-            if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
+            if (!Auto)
             {
-                nextTimeToFire = Time.time + 1f / fireRate;
-                Debug.Log("NextFire in " + nextTimeToFire + "Current time is " +Time.time);
-                Shoot();
+                if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
+                {
+                    nextTimeToFire = Time.time + 1f / fireRate;
+                    Debug.Log("NextFire in " + nextTimeToFire + "Current time is " + Time.time);
+                    Shoot();
+                }
             }
         }
 
@@ -71,21 +79,29 @@ public class Gun : MonoBehaviour
             Destroy(impactGO, 2f);
         }
     }
+    public void PickupClip(AmmoPickUp clipPickup)
+    {
+        clip += clipPickup.clipAmmount;
+        Destroy(clipPickup.gameObject);
+    }
     public void CheckandRefillAmmo()
     {
-        ammoIndicator.value = ammo;
-        if (ammo<maxAmmo)
+        if (clip > 0)
         {
-            if (Input.GetKeyDown(KeyCode.R))
+            ammoIndicator.value = ammo;
+            if (ammo < maxAmmo)
+            {
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    ammo = maxAmmo;
+                    clip--;
+                }
+            }
+            if (ammo <= 0)
             {
                 ammo = maxAmmo;
                 clip--;
             }
-        }
-        if (ammo <= 0)
-        {
-            ammo = maxAmmo;
-            clip--;
         }
     }
 }

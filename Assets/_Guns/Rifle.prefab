@@ -4896,6 +4896,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a3b8e46530a3e946b7637885a332a02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisClipType: 1
+  GunClipType: 
   bdam: 30
   eDam: 1
   impactForce: 100
