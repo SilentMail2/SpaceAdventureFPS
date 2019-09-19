@@ -17,6 +17,7 @@ public class Gun : MonoBehaviour
     public int ammo = 10;
     public int maxAmmo = 10;
     public int clip = 10;
+    public float spread;
     public Slider ammoIndicator;
     public Camera fpsCam;
     public ParticleSystem MuzzleFlash;
@@ -86,9 +87,10 @@ public class Gun : MonoBehaviour
     }
     public void CheckandRefillAmmo()
     {
-        if (clip > 0)
+        ammoIndicator.value = ammo;
+        if (clip >= 0)
         {
-            ammoIndicator.value = ammo;
+
             if (ammo < maxAmmo)
             {
                 if (Input.GetKeyDown(KeyCode.R))
