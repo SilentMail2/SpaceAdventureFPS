@@ -481,6 +481,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gun: {fileID: 353989584723047143, guid: 9d3e24ec13868d149846883df80f77c7, type: 3}
+  ammo: 10
+  clip: 10
+  randomRange: 0.001
 --- !u!54 &4149150429729292360
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -6,14 +6,17 @@ using UnityEngine.AI;
 public class EnemyControl : MonoBehaviour
 {
     enum state { patrol, flee, takecover, wander, attack, search, }
+   [SerializeField] state behaviour;
 
     public Transform[] patrolPoint;
     public int navNumber;
     public Vector3 targetPoint;
     public Transform enemy;
-    enum States {Patrolling, Flee, Take}
     public NavMeshAgent agent;
-
+    public Transform target;
+    public float lookRadius = 10;
+    public float timetoNextshot = 10;
+    public float dam;
 /*    public static Vector3 RandomNavSphere (Vector3 origin, float distance, int layermask)
     {
         Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * distance;
@@ -26,13 +29,43 @@ public class EnemyControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Patrol();
+
+
+           switch (behaviour)
+            {
+            case state.patrol:
+                Patrol();
+                print("On Patrol");
+                break;
+            case state.attack:
+                Attack();
+                print("attacking player");
+                break;
+            case state.flee:
+                print("retreating");
+                break;
+            case state.search:
+                print("searching for player");
+                break;
+            case state.takecover:
+                print("Taking Cover");
+                break;
+            case state.wander:
+                print("taking a look around");
+                break;
+            default:
+                print("nothing");
+                break;
+
+            }
+
     }
 
     void Patrol()
@@ -57,6 +90,11 @@ public class EnemyControl : MonoBehaviour
             navNumber++;
             i++;
         }
+        float distance = Vector3.Distance(target.position, transform.position);
+        if (distance <= lookRadius)
+        {
+            behaviour = state.attack;
+        }
 
         Debug.Log("Patrol Step5");
     }
@@ -79,7 +117,40 @@ public class EnemyControl : MonoBehaviour
     }
     void Attack()
     {
+        agent.SetDestination(target.position);
+        agent.stoppingDistance = 10;
+        float distance = Vector3.Distance(target.position, transform.position);
+
+        timetoNextshot -= 1;
+
+
+
         //shoot at targetted enemies last location
+        float maxRange = 5;
+        float randomDir = Random.Range(-0.5f, 0.5f);
+        RaycastHit hit;
+        if (timetoNextshot <= 0) {
+            if (Vector3.Distance(transform.position, target.position + new Vector3(randomDir, randomDir, randomDir)) < maxRange)
+            {
+                if (Physics.Raycast(transform.position, (target.position - transform.position + new Vector3(randomDir, randomDir, randomDir)), out hit, maxRange))
+                {
+                    if (hit.transform == target)
+                    {
+                        Debug.DrawRay(transform.position, (target.position - transform.position + new Vector3(randomDir, randomDir, randomDir)), Color.green, maxRange);
+                        timetoNextshot = 10;
+                        PlayerHealth playerHealth = target.GetComponent<PlayerHealth>();
+                        playerHealth.TakeHealth(dam);
+                        print("shot hit");
+                    }
+                    else if (hit.transform != target)
+                    {
+                        timetoNextshot = 10;
+                        Debug.DrawRay(transform.position, (target.position - transform.position + new Vector3(randomDir, randomDir, randomDir)), Color.red);
+                        print("missed");
+                    }
+                }
+            }
+        }
     }
     void SearchForPlayer ()
     {
@@ -97,5 +168,10 @@ public class EnemyControl : MonoBehaviour
     {
         //if notices grenade, jumps away from it
     }
-    
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, lookRadius);
+    }
 }

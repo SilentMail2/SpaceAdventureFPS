@@ -66,7 +66,7 @@ public class JumpPackControl : MonoBehaviour
             if (floating)
             {
                 Debug.Log("Check if floating");
-                fuel -= fuelTake * 4;
+                fuel -= fuelTake * 2;
 
                 if (Input.GetKeyUp(KeyCode.LeftControl) || !fuelReady || fPSController.Grounded)
                 {
@@ -81,7 +81,7 @@ public class JumpPackControl : MonoBehaviour
                 speed = 0;
                 if (fuel < maxFuel)
                 {
-                    fuel += fuelTake /fuelGiveMultiplier;
+                    fuel += fuelGiveMultiplier;
                 }
                 if (fuel>=maxFuel)
                 { fuel = maxFuel; }

@@ -98,6 +98,8 @@ public class GunControl : MonoBehaviour
                     GameObject newGun = Instantiate(target.Gun, this.gameObject.transform);
                     newGun.GetComponent<Gun>().ammo = target.gameObject.GetComponent<GunPickup>().ammo;
                     newGun.GetComponent<Gun>().clip = target.gameObject.GetComponent<GunPickup>().clip;
+                    newGun.GetComponent<Gun>().randomDirMax = target.gameObject.GetComponent<GunPickup>().randomRange;
+                    newGun.GetComponent<Gun>().randomDirMin = -target.gameObject.GetComponent<GunPickup>().randomRange;
                     if (transform.childCount == 2)
                     {
                         if (selectedWeapon == 0)
@@ -192,6 +194,7 @@ public class GunControl : MonoBehaviour
         GameObject Droppedgun = this.transform.GetChild(selectedWeapon).gameObject;
         droppedGun.GetComponent<GunPickup>().ammo = Droppedgun.GetComponent<Gun>().ammo;
         droppedGun.GetComponent<GunPickup>().clip = Droppedgun.GetComponent<Gun>().clip;
+        droppedGun.GetComponent<GunPickup>().randomRange = Droppedgun.GetComponent<Gun>().randomDirMax;
 
         // GameObject instance = Instantiate((Resources.Load(("GunPickup("+weaponReadytoDrop + ")"), typeof(GameObject)))) as GameObject;
         //}

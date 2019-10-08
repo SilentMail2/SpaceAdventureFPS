@@ -459,6 +459,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!4 &186582339 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7362114053577318255, guid: 8d1bf96f3abd23246852f1df666dbb67,
+    type: 3}
+  m_PrefabInstance: {fileID: 7362114053338613026}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &298953429
 GameObject:
   m_ObjectHideFlags: 0
@@ -3341,14 +3347,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd93cada8d09db34384ae64580788da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  behaviour: 0
   patrolPoint:
   - {fileID: 1742352051}
   - {fileID: 21769497}
   - {fileID: 1245441033}
   navNumber: 0
   targetPoint: {x: 0, y: 0, z: 0}
-  enemy: {fileID: 0}
+  enemy: {fileID: 186582339}
   agent: {fileID: 1325222396}
+  target: {fileID: 186582339}
+  lookRadius: 10
+  timetoNextshot: 10
+  dam: 0
 --- !u!114 &1325222395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5366,21 +5377,6 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2864815873437671766, guid: 3caccab9e9fc76e45a6dff6101b3b86f,
-        type: 3}
-      propertyPath: MuzzleFlash
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 203636466531373049, guid: 3caccab9e9fc76e45a6dff6101b3b86f,
-        type: 3}
-      propertyPath: ammo
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 203636466531373049, guid: 3caccab9e9fc76e45a6dff6101b3b86f,
-        type: 3}
-      propertyPath: clip
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3caccab9e9fc76e45a6dff6101b3b86f, type: 3}
 --- !u!1001 &5524416686552136547
@@ -5702,11 +5698,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 991553313434756172, guid: 5dc31feb4cbaa9a4bb27a1621e463a35,
-        type: 3}
-      propertyPath: MuzzleFlash
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dc31feb4cbaa9a4bb27a1621e463a35, type: 3}

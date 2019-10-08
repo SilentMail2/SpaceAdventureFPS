@@ -23,6 +23,8 @@ public class Gun : MonoBehaviour
     public ParticleSystem MuzzleFlash;
     public GameObject ImpactEffect;
     private float nextTimeToFire = 0f;
+    public float randomDirMin;
+    public float randomDirMax;
     public bool Auto = false;
     // Update is called once per frame
     private void Awake()
@@ -40,6 +42,7 @@ public class Gun : MonoBehaviour
             {
                 if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
                 {
+
                     nextTimeToFire = Time.time + 1f / fireRate;
                     Debug.Log("NextFire in " + nextTimeToFire);
                     Shoot();
@@ -62,18 +65,26 @@ public class Gun : MonoBehaviour
     {
         ammo--;
         MuzzleFlash.Play();
+        float randomDirx = Random.Range(randomDirMin, randomDirMax);
+        float randomDiry = Random.Range(randomDirMin, randomDirMax);
+        float randomDirz = Random.Range(randomDirMin, randomDirMax);
+
         RaycastHit hit;
         Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range);
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward+new Vector3(randomDirx, randomDiry, randomDirz), out hit, range))
         {
             Debug.Log(hit.transform.gameObject.name);
             Target target = hit.transform.GetComponent<Target>();
             if (target != null)
             {
+                Debug.DrawRay(fpsCam.transform.position, fpsCam.transform.forward + new Vector3(randomDirx, randomDiry, randomDirz), Color.green);
                 target.TakeHealth(bdam);
             }
             if (hit.rigidbody != null)
             {
+                Debug.DrawRay(fpsCam.transform.position, fpsCam.transform.forward + new Vector3(randomDirx, randomDiry, randomDirz), Color.red);
+
+
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
           GameObject impactGO = Instantiate(ImpactEffect, hit.point, Quaternion.LookRotation(hit.normal));

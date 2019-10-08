@@ -34,7 +34,7 @@ public class PlayerHealth : MonoBehaviour
         { hp = mhp; }
     }
 
-    void TakeHealth(float dam)
+    public void TakeHealth(float dam)
     {
         shieldReplenishing = false;
         if (sp > 0)
